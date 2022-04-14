@@ -1,10 +1,21 @@
 import { Button } from "bootstrap";
 import React, { useRef } from "react";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link , useLocation, useNavigate } from "react-router-dom";
+import auth from "../../../../firebase.init";
 import './Login.css'
 
 const Login = () => {
+   const location = useLocation();
+   const navigate= useNavigate();
+   const [
+      signInWithEmailAndPassword,
+      user,
+      loading,
+      error,
+      ] = useSignInWithEmailAndPassword(auth);
+
    const refEmail =useRef('');
    const refPassword =useRef('');
 
@@ -12,7 +23,12 @@ const Login = () => {
       e.preventDefault();
       const email = refEmail.current.value;
       const password = refPassword.current.value;
-      console.log(email , password)
+      
+      signInWithEmailAndPassword(email,password);
+   }
+   let from = location.state?.from?.pathname || '/';
+   if(user){
+      navigate(from,{replace:true});
    }
 return (
    <div className="mt-5 pt-5">

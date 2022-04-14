@@ -3,10 +3,12 @@ import './App.css';
 import Home from './components/Home/Home';
 import Header from './components/Navbar/Navbar/Navbar';
 import About from './components/page/About/About';
+import CheckOut from './components/page/CheckOut/CheckOut/CheckOut';
 import Details from './components/page/DetailsPage/Details';
 import NoPage from './components/page/Error/NoPage/NoPage';
 import Forget from './components/page/Forget/Forget';
 import Login from './components/page/Form/Login/Login';
+import RequireAuth from './components/page/Form/Login/RequireAuth';
 import SignIn from './components/page/Form/SignIn/SignIn';
 
 function App() {
@@ -18,7 +20,13 @@ function App() {
         <Route path='/Home' element={<Home></Home>}></Route>
         <Route path='/details/:detailsId' element={<Details></Details>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
+        {/* <Route path='/logout' element={<Login></Login>}></Route> */}
         <Route path='/about' element={<About></About>}></Route>
+        <Route path='/checkout' element={
+          <RequireAuth>
+            <CheckOut></CheckOut>
+          </RequireAuth>
+        }></Route>
         <Route path='/register' element={<SignIn></SignIn>}></Route>
         <Route path='/forget' element={<Forget></Forget>}></Route>
         <Route path='*' element={<NoPage></NoPage>}></Route>
