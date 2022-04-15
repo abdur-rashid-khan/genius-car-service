@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link , useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../../firebase.init";
+import LoginWithOtherAccount from "../../LoginOtherAccount/LoginWithOtherAccount";
 import './Login.css'
 
 const Login = () => {
@@ -23,8 +24,8 @@ const Login = () => {
       e.preventDefault();
       const email = refEmail.current.value;
       const password = refPassword.current.value;
-      
       signInWithEmailAndPassword(email,password);
+      alert('login successfully')
    }
    let from = location.state?.from?.pathname || '/';
    if(user){
@@ -55,6 +56,7 @@ return (
          <Link className=" d-block"  to="/register">Create a New Account</Link>
          <Link  to="/forget">Forget Password</Link>
       </div>
+      <LoginWithOtherAccount></LoginWithOtherAccount>
       </Form>
    </div>
 );

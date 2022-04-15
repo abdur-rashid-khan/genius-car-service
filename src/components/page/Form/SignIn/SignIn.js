@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from "../../../../firebase.init";
+import LoginWithOtherAccount from "../../LoginOtherAccount/LoginWithOtherAccount";
 
 
 
@@ -65,6 +66,7 @@ return (
          </Link>
          {/* <Link  to="/forget">Forget Password</Link> */}
       </div>
+      <LoginWithOtherAccount></LoginWithOtherAccount>
       </Form>
    </div>
 );

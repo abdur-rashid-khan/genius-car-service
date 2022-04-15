@@ -14,6 +14,7 @@ const Header = () => {
    const [user] = useAuthState(auth);
    const logout = () =>{
       signOut(auth)
+      alert('logOut successfully')
    }
 return (
    <div>
