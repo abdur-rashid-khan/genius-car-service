@@ -1,13 +1,25 @@
 import { Button } from "bootstrap";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Helmet } from "react-helmet-async";
 import { Link , useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../../firebase.init";
 import LoginWithOtherAccount from "../../LoginOtherAccount/LoginWithOtherAccount";
 import './Login.css'
 
 const Login = () => {
+const [agree , setAgree]=useState();
+const refAgree =useRef(false);
+const checkBox=(e)=>{
+   // const checkBoxValue = refAgree.current.value;
+   const checkBoxValue =e.target.value;
+   setAgree(checkBoxValue)
+}
+console.log(agree)
+
+
+
    const location = useLocation();
    const navigate= useNavigate();
    const [
@@ -25,14 +37,19 @@ const Login = () => {
       const email = refEmail.current.value;
       const password = refPassword.current.value;
       signInWithEmailAndPassword(email,password);
-      alert('login successfully')
    }
    let from = location.state?.from?.pathname || '/';
-   if(user){
-      navigate(from,{replace:true});
-   }
+   useEffect(()=>{
+      if(user){
+         navigate(from,{replace:true});
+         alert('login successfully')
+      }
+   },[user])
 return (
    <div className="mt-5 pt-5">
+      <Helmet>
+         <title>login - car services</title>
+      </Helmet>
       <Form id="form" onSubmit={Login}>
          <div className="text-center ">
             <h2>Login </h2>
@@ -48,6 +65,10 @@ return (
       <Form.Group className="mb-3" controlId="formBasicPassword">
          <Form.Label>Password</Form.Label>
          <Form.Control ref={refPassword} type="password" required placeholder="Password" />
+      </Form.Group>
+         <Form.Group className="mb-3 d-flex" controlId="formBasicCheckBox">
+         <Form.Check onClick={checkBox} className="pe-2" type='checkbox' ref={refAgree}/>
+         <Form.Label style={{cursor:'pointer',}}>Agree Terms And Conditions</Form.Label>
       </Form.Group>
       <button  id='btn' type="submit">
          Login

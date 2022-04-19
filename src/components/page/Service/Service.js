@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const Service = ({ product }) => {
@@ -10,7 +11,7 @@ const detailsBtn =(id)=>{
 }
 
 return (
-   <div className="col-sm-12 col-md-6 col-lg-4  my-1  py-2 px-2 g-4">
+   <div className="col-sm-12 col-md-6 col-lg-4  my-1  py-2 px-2 g-4"> 
       <div className="border p-2">
       <img className="w-100" src={img} alt="" />
       <h2>{name}</h2>

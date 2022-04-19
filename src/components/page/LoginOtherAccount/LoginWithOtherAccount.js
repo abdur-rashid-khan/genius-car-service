@@ -2,13 +2,14 @@ import React from "react";
 import google from '../../../images/social/google.png';
 import fb from '../../../images/social/fb.png';
 import git from '../../../images/social/git.png';
-import { useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import { useLocation,useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const LoginWithOtherAccount = () => {
    const [signInWithGoogle ,user, loading, error] = useSignInWithGoogle(auth);
-
+   // for google 
    const loginWithGoogle =()=>{
       signInWithGoogle()
    }
@@ -17,21 +18,26 @@ const LoginWithOtherAccount = () => {
    const logInGithub =()=>{
       signInWithGithub()
    }
+   // for facebook 
+   const [signInWithFacebook,fbUser,fbLoading,fbError]=useSignInWithFacebook(auth);
+   const loginWithFb =()=>{
+      signInWithFacebook();
+   }
    const navigate= useNavigate();
    const location = useLocation()
    let from = location.state?.from?.pathname || '/';
 
-   if(user || user1){
+   if(user || user1 || fbUser){
       navigate(from,{replace:true});
       alert('login successfully')
    }
    let loadingmes='';
-   if (loading || loading1) {
+   if (loading || loading1||fbLoading) {
       loadingmes = <p>Loading...</p>;
-    }
+   }
    let errormess='';
-   if (error||error1) {
-      errormess = <p>Error: {error?.message} {error1?.message}</p>
+   if (error||error1 || fbError) {
+      errormess = <p>Error: {error?.message} {error1?.message} {fbError?.message}</p>
    }
 return (
    <div className="py-4">
@@ -50,7 +56,7 @@ return (
          <div onClick={()=>loginWithGoogle()} className="google " style={{width:'35px',height:'35px',cursor:'pointer'}}>
             <img className="img-fluid pe-auto" src={google} alt="" />
          </div>
-         <div className="facebook" style={{width:'30px',height:'30px',cursor:'pointer'}}>
+         <div  onClick={()=>loginWithFb()} className="facebook" style={{width:'30px',height:'30px',cursor:'pointer'}}>
             <img className="img-fluid pe-auto" src={fb} alt="" />
          </div>
          <div onClick={()=>logInGithub()} className="github" style={{width:'30px',height:'30px',cursor:'pointer'}}>

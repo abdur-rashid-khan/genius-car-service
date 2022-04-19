@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import React from "react";
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link} from "react-router-dom";
 import auth from "../../../firebase.init";
@@ -30,9 +30,9 @@ return (
             style={{ maxHeight: "100px" }}
             navbarScroll
             >
-            <Nav.Link href="home#home">Home</Nav.Link>
-            <Nav.Link href="home#services">Services</Nav.Link>
-            <Nav.Link href="home#expert">Expert</Nav.Link>
+            <Nav.Link href="/home#home">Home</Nav.Link>
+            <Nav.Link href="/home#services">Services</Nav.Link>
+            <Nav.Link href="/home#expert">Expert</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
                <NavDropdown.Item  as={Link}  to="/action3">Dropdown</NavDropdown.Item>
                <NavDropdown.Item  as={Link} to="/action4">
@@ -48,7 +48,7 @@ return (
             <Nav.Link className="text-dark" as={Link} to="/about">About</Nav.Link>
             {
                user? 
-               <button className="text-dark bg-primary border-0" as={Link} onClick={logout}>logout</button>
+               <button className="text-dark bg-primary border-0" as={Link} onClick={()=>logout()}>logout</button>
                :<Nav.Link className="text-dark" as={Link} to="/login">Login</Nav.Link>
             }
             </Form>

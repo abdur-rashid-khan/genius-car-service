@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from "../../../../firebase.init";
 import LoginWithOtherAccount from "../../LoginOtherAccount/LoginWithOtherAccount";
+import { sendEmailVerification } from "firebase/auth";
+import { wait } from "@testing-library/user-event/dist/utils";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -15,25 +18,30 @@ const SignIn = () => {
       user,
       loading,
       error,
-   ] = useCreateUserWithEmailAndPassword(auth);
+   ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
+   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
    const refName = useRef('');
    const refEmails =useRef('');
    const refPassword =useRef('');
 
-   const SignInBtn =(e)=>{
+   const SignInBtn =async (e)=>{
       e.preventDefault();
       const password = refPassword.current.value;
       const email = refEmails.current.value;
       const name =refName.current.value;
-      
-      createUserWithEmailAndPassword(email , password);
+      await createUserWithEmailAndPassword(email , password);
+      await updateProfile({displayName:name})
    }
    if(user){
       navigate('/home')
+      // console.log(user)
    }
 return (
    <div className="mt-5 pt-5">
+      <Helmet>
+         <title>sign in - car services</title>
+      </Helmet>
       <Form id="form" onSubmit={SignInBtn}>
       <div className="text-center ">
          <h2>Register Now  </h2>

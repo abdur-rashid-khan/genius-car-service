@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Form } from "react-bootstrap";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
+import { Helmet } from "react-helmet-async";
 import { Link,useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 
@@ -27,6 +28,9 @@ const Forget = () => {
    }
 return (
    <div className="mt-5 pt-5">
+      <Helmet>
+         <title>forget password - car services</title>
+      </Helmet>
       <Form id="form" onSubmit={forgetPassword}>
       <div className="text-center ">
          <h2>Forget Password </h2>
