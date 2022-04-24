@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 const Service = ({ product }) => {
-const { id, name, img, description, price } = product;
+const { _id, name, img, description, price } = product;
 // 
 const navigate= useNavigate();
 const detailsBtn =(id)=>{
@@ -19,7 +19,7 @@ return (
       <p>
       <small>{description}</small>
       </p>
-      <button onClick={()=>detailsBtn(id)} className="btn btn-primary">Book: {name}</button>
+      <button onClick={()=>detailsBtn(_id)} className="btn btn-primary">Book: {name}</button>
       </div>
    </div>
 );

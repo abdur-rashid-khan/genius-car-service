@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const ServicesHook = () => {
    const [services, setServices] = useState([]);
    useEffect(()=>{
-      fetch('services.json')
+      fetch('http://localhost:5000/user')
       .then(res => res.json())
       .then(data => setServices(data))
    },[])

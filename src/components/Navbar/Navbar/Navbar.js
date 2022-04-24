@@ -45,6 +45,8 @@ return (
             </NavDropdown>
             </Nav>
             <Form className="d-flex">
+            <Nav.Link className="text-dark" as={Link} to="/add-post">Add Post</Nav.Link>
+            <Nav.Link className="text-dark" as={Link} to="/manage">Manage Post</Nav.Link>
             <Nav.Link className="text-dark" as={Link} to="/about">About</Nav.Link>
             {
                user? 
